@@ -1,0 +1,9 @@
+{% if is_image %}
+    {% if thumb %}
+        <a href="{{ url }}" target="_blank"><img src="{{ thumb }}"></a>
+    {% else %}
+        <img src="{{ url }}">
+    {% endif %}
+{% else %}
+    <a href="{{ url }}" target="_blank">{{ title }}</a>
+{% endif %}
