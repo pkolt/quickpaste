@@ -77,7 +77,7 @@ def upload_file(user, file):
     is_image = False
     try:
         im = Image.open(file)
-    except IOError:
+    except (IOError, OverflowError):
         file.seek(0,0)
         # Save the file, which is not an image
         open(os.path.join(real_path, filename), 'wb').write(file.read())
