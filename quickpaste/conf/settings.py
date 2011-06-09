@@ -3,7 +3,7 @@
 
 from django.conf import settings
 
-URL_TINYMCE = getattr(settings, 'QUICKPASTE_URL_TINYMCE', settings.MEDIA_URL+'common/tiny_mce/')
+URL_TINYMCE = getattr(settings, 'QUICKPASTE_URL_TINYMCE', settings.STATIC_URL+'tiny_mce/')
 # Select button
 if hasattr(settings, 'QUICKPASTE_URL_BUTTON'):
     URL_BUTTON = getattr(settings, 'QUICKPASTE_URL_BUTTON')

@@ -6,7 +6,7 @@ import Image
 import os
 import urlparse
 from django import forms
-from django.views.generic.base import TemplateView
+from django.views.generic.edit import FormView
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render_to_response
@@ -20,31 +20,32 @@ class UploadForm(forms.Form):
     """ Download Form """
     upload = forms.FileField(label='')
 
-class FormView(TemplateView):
-    """ Page displaying the form to download the file """
+
+class UploadView(FormView):
+    form_class = UploadForm
     template_name = 'quickpaste/base.html'
 
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(FormView, self).dispatch(*args, **kwargs)
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        decorator = flash_login_required if request.method == 'POST' else login_required
+        dispatch = decorator(super(UploadView, self).dispatch)
+        return dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         cookie_dict = parse_cookie(self.request.META.get('HTTP_COOKIE', ''))
         session_key = cookie_dict.get(settings.SESSION_COOKIE_NAME, None)
-        context = {'URL_TINYMCE': URL_TINYMCE, 'url_button': URL_BUTTON, 'session_key': session_key, 'form': UploadForm()}
-        kwargs.update(context)
+        kwargs.update({'url_timymce': URL_TINYMCE,
+                       'url_button': URL_BUTTON,
+                       'session_key': session_key})
         return kwargs
 
-@csrf_exempt
-@flash_login_required
-def upload_view(request):
-    """ Handling file uploads """
-    if request.method == 'POST':
-        form = UploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            context = upload_file(request.user, form.cleaned_data['upload'])
-            return render_to_response('quickpaste/link.html', context)
-    raise Http404
+    def form_valid(self, form):
+        context = upload_file(self.request.user, form.cleaned_data['upload'])
+        return render_to_response('quickpaste/link.html', context)
+
+    def form_invalid(self, form):
+        raise Http404
+
 
 def upload_file(user, file):
     """

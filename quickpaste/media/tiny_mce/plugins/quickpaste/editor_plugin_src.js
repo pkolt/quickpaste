@@ -4,7 +4,7 @@
 		init : function(ed, url) {
 			ed.addCommand('mceDownloader', function() {
 				ed.windowManager.open({
-					file : '/quickpaste/form/',
+					file : '/quickpaste/',
 					width : 420 + parseInt(ed.getLang('quickpaste.delta_width', 0)),
 					height : 140 + parseInt(ed.getLang('quickpaste.delta_height', 0)),
 					inline : 1
