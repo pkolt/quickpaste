@@ -25,7 +25,7 @@ Installation
 
 Settings
 URL каталога WYSIWYG-редактора TinyMCE (http://tinymce.moxiecode.com/)
-QUICKPASTE_URL_TINYMCE = settings.MEDIA_URL+'common/tiny_mce/' - URL to a folder tiny_mce
+QUICKPASTE_URL_TINYMCE = settings.STATIC_URL+'tiny_mce/' - URL to a folder tiny_mce
 QUICKPASTE_URL_BUTTON - Customize button `Select the file`
 QUICKPASTE_IMAGE_SIZE = (1024, 768) - Change the size of the original image
 QUICKPASTE_IMAGE_SIZE_THUMBNAIL = (600, 600) - Resize thumbnail picture
