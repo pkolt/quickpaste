@@ -1,3 +1,3 @@
 tinyMCE.addI18n('en.quickpaste_dlg',{
-	title : 'Add file'
+	title : 'Select a file to be inserted in the text'
 });

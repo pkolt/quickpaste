@@ -9,15 +9,14 @@
 					height : 140 + parseInt(ed.getLang('quickpaste.delta_height', 0)),
 					inline : 1
 				}, {
-					plugin_url : url,
-					some_custom_arg : 'custom arg'
+					plugin_url : url
 				});
 			});
 
 			ed.addButton('quickpaste', {
 				title : 'quickpaste.desc',
 				cmd : 'mceDownloader',
-				image : url + '/img/quickpaste.gif'
+				image : url + '/img/icon.gif'
 			});
 
 		},
@@ -28,11 +27,11 @@
 
 		getInfo : function() {
 			return {
-				longname : 'quickpaste plugin',
+				longname : 'Quickpaste plugin',
 				author : 'Pavel Koltyshev',
-				authorurl : 'http://github.com/pkolt',
-				infourl : 'http://github.com/pkolt',
-				version : "1.0"
+				authorurl : 'http://github.com/pkolt/quickpaste',
+				infourl : 'http://github.com/pkolt/quickpaste',
+				version : "1.2.0"
 			};
 		}
 	});
