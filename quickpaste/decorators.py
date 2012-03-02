@@ -1,16 +1,13 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
+# coding: utf-8
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from django.conf import settings
 
 def flash_login_required(function):
     """
-    Декоратор, который аутентифицирует пользователя по ключу сессии упакованному в POST-переменную.
-    Использование вызвано, тем что флешь-загрузчик не отпровляет Cookie в которых храниться ключ сессии пользователя.
+    Decorator that authenticates the user's session key packed in POST-variable.
+    The use caused by the fact that the flash-loader does not otprovlyaet Cookie in which a session key stored user.
     """
-    
     def decorator(request, *args, **kwargs):
         try:
             engine = __import__(settings.SESSION_ENGINE, {}, {}, [''])
