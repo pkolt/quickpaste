@@ -99,7 +99,7 @@ class UploadView(FormView):
             is_img = True
             if IMG_SIZE:
                 img.thumbnail(IMG_SIZE, Image.ANTIALIAS)
-                img.save(open(save_path, 'wb'))
+            img.save(open(save_path, 'wb'))
             # Create thumbnail
             thumb_filename = self.get_thumb_filename(filename)
             thumb_save_path = os.path.join(path, thumb_filename)
