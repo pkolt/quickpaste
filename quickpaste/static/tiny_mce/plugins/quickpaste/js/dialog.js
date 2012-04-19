@@ -1,1 +1,1 @@
-tinyMCEPopup.requireLangPack();var QuickPasteDialog={insert:function(a){tinyMCEPopup.editor.execCommand("mceInsertContent",false,a);tinyMCEPopup.close()}};tinyMCEPopup.onInit.add(QuickPasteDialog.init,QuickPasteDialog);
+tinyMCEPopup.requireLangPack();var QuickPasteDialog={init:function(a){},insert:function(a){tinyMCEPopup.editor.execCommand("mceInsertContent",false,a);tinyMCEPopup.close()}};tinyMCEPopup.onInit.add(QuickPasteDialog.init,QuickPasteDialog);
