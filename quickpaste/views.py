@@ -2,9 +2,9 @@
 import os
 import re
 import string
-import Image
 import datetime
 import urlparse
+import Image
 from django import forms
 from django.conf import settings
 from django.http import Http404, parse_cookie
@@ -72,6 +72,15 @@ class UploadView(FormView):
         name, ext = os.path.splitext(filename)
         return name
 
+    def file_is_img(self, filename):
+        img_ext = ['jpg', 'jpeg', 'png', 'gif']
+        try:
+            ext = filename.split('.')[-1]
+            if ext in img_ext:
+                return True
+        except IndexError:
+            pass
+
     def upload_file(self, f, user_pk):
         context = {
             'title': self.get_title(f.name)
@@ -86,16 +95,15 @@ class UploadView(FormView):
             os.makedirs(path)
         save_path = os.path.join(path, filename)
 
-        f.seek(0,0)
-        try:
-            img = Image.open(f)
-        except (IOError, OverflowError):
+        f.seek(0)
+        if not self.file_is_img(f.name):
             # Other file
             is_img = False
-            f.seek(0,0)
+            f.seek(0)
             open(save_path, 'wb').write(f.read())
         else:
             # Image file
+            img = Image.open(f)
             is_img = True
             if IMG_SIZE:
                 img.thumbnail(IMG_SIZE, Image.ANTIALIAS)
