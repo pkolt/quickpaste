@@ -76,6 +76,7 @@ class UploadView(FormView):
         img_ext = ['jpg', 'jpeg', 'png', 'gif']
         try:
             ext = filename.split('.')[-1]
+            ext = ext.lower()
             if ext in img_ext:
                 return True
         except IndexError:
